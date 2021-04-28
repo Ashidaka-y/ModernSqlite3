@@ -7,7 +7,18 @@ int main()
 
 	MSqlite ms;
 	ms.OpenDatabase("./hello.db");
-	ms.ExectSQL("create table hello('a' int,'b' text)");
+	if (!ms.ExectSQL("create table hello('a' int,'b' text)"))
+	{
+		printf("%s\n", ms.GetLastError().c_str());
+	}
+	//if (!ms.GetAllTableName())
+	//{
+	//	printf("%s\n", ms.GetLastError().c_str());
+	//}
+	if (!ms.InitContext())
+	{
+		return false;
+	}
 	std::cout << "hellowrold" << std::endl;
 	return 0;
 }
