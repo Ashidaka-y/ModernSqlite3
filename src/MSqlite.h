@@ -60,6 +60,8 @@ public:
 	BOOL ExectSQL(const string& sQuery, int* nRow, int* nColumn, char*** szResult);
 	BOOL ExectSQL(const string& sQuery);
 
+	void FreeTable(char** pResult);
+
 	string GetLastError();
 
 	/*
@@ -81,7 +83,6 @@ protected:
 
 	BOOL CloseDB();
 
-	void FreeTable(char** pResult);
 
 private:
 	sqlite3* m_pSqlite;
