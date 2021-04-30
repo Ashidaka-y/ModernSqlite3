@@ -31,25 +31,37 @@ int main()
 		return FALSE;
 	}
 
-	char** pResult;
-	int nRow, nCol;
-	if (!ms.ExectSQL("select * from test", &nRow, &nCol, &pResult))
+	//char** pResult;
+	//int nRow, nCol;
+	//if (!ms.ExectSQL("select * from test", &nRow, &nCol, &pResult))
+	//{
+	//	printf("Select Failed,Error:%s\n", ms.GetLastError().c_str());
+	//	return FALSE;
+	//}
+	//printf("Select Success!\n");
+	//for (int i = 0; i < nCol; i++)
+	//{
+	//	printf("%s ", pResult[i]);
+	//}
+	//printf("\n");
+	//for (int x = nCol; x < nCol * nRow + nCol; x++)
+	//{
+	//	printf("%s ", pResult[x]);
+	//}
+	//printf("\n");
+	//ms.FreeTable(pResult);
+
+	MSqlite::result s = ms.Exect("select * from test");
+	printf("Result Row:%d\n", s.size());
+	for (auto row : s)
 	{
-		printf("Select Failed,Error:%s\n", ms.GetLastError().c_str());
-		return FALSE;
+		for (auto col : row)
+		{
+			printf("%s\t", col.c_str());
+		}
+		printf("\n");
 	}
-	printf("Select Success!\n");
-	for (int i = 0; i < nCol; i++)
-	{
-		printf("%s ", pResult[i]);
-	}
-	printf("\n");
-	for (int x = nCol; x < nCol * nRow + nCol; x++)
-	{
-		printf("%s ", pResult[x]);
-	}
-	printf("\n");
-	ms.FreeTable(pResult);
+
 	getchar();
 	return 0;
 }

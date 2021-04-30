@@ -80,6 +80,28 @@ BOOL MSqlite::ExectSQL(const string& sQuery)
 	return TRUE;
 }
 
+MSqlite::result MSqlite::Exect(const string& sQuery)
+{
+	char** pResult;
+	int nRow, nCol;
+	if (!ExectSQL(sQuery, &nRow, &nCol, &pResult))
+	{
+		assert(false);
+	}
+	MSqlite::result rs;
+	for (int i = 0; i < nRow; i++)
+	{
+		MSqlite::result_item item;
+		for (int x = nCol * (i + 1); x < nCol * (i + 2); x++)
+		{
+			item.push_back(pResult[x]);
+		}
+		rs.push_back(item);
+	}
+	FreeTable(pResult);
+	return rs;
+}
+
 string MSqlite::GetLastError()
 {
 	return m_sLstMsg;

@@ -53,12 +53,17 @@ public:
 	MSqlite();
 	~MSqlite();
 
+	typedef vector<list<string>> result;
+	typedef list<string> result_item;
+
 	BOOL OpenDatabase(const string& databaseName, const string& password = "", const string& tableName = "");
 	BOOL CloseDatabase();
 	void Clear();
 
 	BOOL ExectSQL(const string& sQuery, int* nRow, int* nColumn, char*** szResult);
 	BOOL ExectSQL(const string& sQuery);
+
+	result Exect(const string& sQuery);
 
 	void FreeTable(char** pResult);
 
